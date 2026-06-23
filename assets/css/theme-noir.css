@@ -1,217 +1,164 @@
 /* ==========================================================================
-   PLAN WITH Y — NOIR THEME
-   Apple-inspired dark: restrained, quiet, effortless.
-   Strictly the four brand colours — Rich Black, Ivory, Citrus Yellow,
-   Electric Blue — nothing invented.
+   PLAN WITH Y — NOIR THEME (black-dominant, eye-friendly)
+   Load AFTER styles.css. Same four brand colours, re-balanced so
+   Rich Black #000000 is the dominant canvas, Ivory #F6F2E9 is the text,
+   Citrus Yellow leads the small accents (best contrast on black) and
+   Electric Blue carries the primary CTAs and focal blocks. Nothing invented.
 
-   Principles:
-   · True black canvas. Surfaces lift by the faintest step.
-   · Text is warm ivory, softened. Secondary text is notably quieter.
-   · Colour appears only where it earns attention — buttons, one accent
-     moment, selection. Everything else recedes.
-   · No visible borders where spacing alone creates separation.
-   · Shadows are depth cues, never decorative.
+   Comfort principles applied:
+   · Page stays true Rich Black, but surfaces lift gently off it so there are
+     no harsh black-on-black edges.
+   · Body text is softened (not pure-bright ivory) to avoid halation/glare.
+   · Borders are low-contrast hairlines; glows are subtle, never neon.
    ========================================================================== */
 
 :root {
   color-scheme: dark;
 
-  /* ── Surfaces ─────────────────────────────────────────────────────────── */
-  --bg:            #000000;
-  --surface:       #0A0A0B;
-  --surface-card:  #111113;
+  /* surfaces — black dominant, with calm, low-step elevation */
+  --bg:            #000000;   /* dominant canvas = Rich Black */
+  --surface:       #0A0A0C;   /* faint section lift */
+  --surface-card:  #131316;   /* cards lift clearly but gently off black */
 
-  --ivory-50:      #111113;
-  --ivory-200:     rgba(246,242,233,0.06);
-  --ivory-300:     rgba(246,242,233,0.10);
+  /* remap the old "lifted ivory" tints to dark so every component that
+     used them (cards, inputs, strips, chips) flips automatically */
+  --ivory-50:      #131316;
+  --ivory-200:     rgba(246,242,233,0.08);
+  --ivory-300:     rgba(246,242,233,0.16);
 
-  --border:        rgba(246,242,233,0.06);
-  --border-strong: rgba(246,242,233,0.10);
+  --border:        rgba(246,242,233,0.08);
+  --border-strong: rgba(246,242,233,0.16);
 
-  /* ── Text hierarchy ───────────────────────────────────────────────────── */
-  --ink:           rgba(236,231,218,0.88);
-  --ink-soft:      rgba(236,231,218,0.55);
-  --ink-muted:     rgba(236,231,218,0.34);
+  /* text hierarchy — warm ivory, dialled back from full brightness so it
+     reads softly on black instead of glaring */
+  --ink:           #ECE7DA;            /* headings: near-ivory, gentle */
+  --ink-soft:      rgba(236,231,218,0.72);
+  --ink-muted:     rgba(236,231,218,0.46);
 
-  --on-dark:       rgba(246,242,233,0.92);
-  --on-dark-soft:  rgba(246,242,233,0.60);
-  --on-dark-mut:   rgba(246,242,233,0.38);
+  /* on true-dark blocks (blue/black panels) keep brighter ivory */
+  --on-dark:       #F6F2E9;
+  --on-dark-soft:  rgba(246,242,233,0.74);
+  --on-dark-mut:   rgba(246,242,233,0.50);
 
-  /* ── Elevation ────────────────────────────────────────────────────────── */
-  --shadow-xs: 0 1px 3px rgba(0,0,0,0.4);
-  --shadow-sm: 0 8px 24px rgba(0,0,0,0.35);
-  --shadow:    0 20px 50px rgba(0,0,0,0.4);
-  --shadow-lg: 0 32px 70px rgba(0,0,0,0.5);
-  --shadow-blue: 0 14px 40px rgba(10,75,216,0.25);
+  /* elevation reads as depth on black; keep it soft, never a hard ring */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-sm: 0 10px 30px rgba(0,0,0,0.45);
+  --shadow:    0 24px 60px rgba(0,0,0,0.5);
+  --shadow-lg: 0 40px 90px rgba(0,0,0,0.6);
+  --shadow-blue: 0 18px 50px rgba(10,75,216,0.40);
 }
 
 html, body { background: var(--bg); }
 
-/* ── Scrollbar ──────────────────────────────────────────────────────────── */
-* { scrollbar-width: thin; scrollbar-color: rgba(246,242,233,0.12) transparent; }
-*::-webkit-scrollbar { width: 10px; height: 10px; }
+/* calm, dark scrollbar so the whole experience feels cohesive & smooth */
+* { scrollbar-width: thin; scrollbar-color: rgba(246,242,233,0.18) transparent; }
+*::-webkit-scrollbar { width: 11px; height: 11px; }
 *::-webkit-scrollbar-track { background: transparent; }
-*::-webkit-scrollbar-thumb { background: rgba(246,242,233,0.10); border-radius: 20px; border: 3px solid #000; }
-*::-webkit-scrollbar-thumb:hover { background: rgba(246,242,233,0.20); }
+*::-webkit-scrollbar-thumb { background: rgba(246,242,233,0.14); border-radius: 20px; border: 3px solid #000; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(246,242,233,0.26); }
 
 ::selection { background: var(--yellow); color: #14130F; }
 
-/* ── Accents — restrained ──────────────────────────────────────────────── */
-/* Eyebrow labels: quiet ivory, not screaming yellow. The yellow dash
-   before the text (from .eyebrow::before in base) provides the colour pop. */
-.eyebrow { color: var(--ink-muted); }
-.eyebrow::before { background: var(--yellow); }
-
-/* Links: inherit text colour, underline provides affordance */
-.link-arrow { color: var(--ink); }
-.link-arrow::after { background: var(--ink); }
-.link-arrow:hover { color: var(--yellow); }
-.link-arrow:hover::after { background: var(--yellow); }
-
-.faq-q:hover { color: var(--ivory); }
-.story p:first-of-type::first-letter { color: var(--blue); }
-
-.nav-links a { color: var(--ink-soft); }
+/* ---- Accents that need contrast on black switch to yellow ------------- */
+.eyebrow { color: var(--yellow); }
+.link-arrow { color: var(--yellow); }
+.link-arrow::after { background: var(--yellow); }
+.faq-q:hover { color: var(--yellow); }
+.story p:first-of-type::first-letter { color: var(--yellow); }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--ink); }
-.nav-links a::after { background: rgba(246,242,233,0.30); }
-.nav-links a:hover::after, .nav-links a[aria-current="page"]::after { background: rgba(246,242,233,0.50); }
 
-/* Large display accents stay brand-blue */
+/* large display accents stay brand-blue (display weight carries it) */
 .accent-blue { color: var(--blue); }
 
-/* ── Hero orbs — barely there, atmospheric ─────────────────────────────── */
-.orb { opacity: 0.18; filter: blur(50px); }
-.orb--blue   { background: radial-gradient(circle at 40% 40%, rgba(10,75,216,0.45), rgba(10,75,216,0)); }
-.orb--yellow { background: radial-gradient(circle at 40% 40%, rgba(255,197,38,0.30), rgba(255,197,38,0)); }
+/* ---- Gentle glows: dial the hero orbs WAY down so they're a soft haze -- */
+.orb { opacity: 0.28; filter: blur(36px); }
+.orb--blue   { background: radial-gradient(circle at 40% 40%, rgba(10,75,216,0.55), rgba(10,75,216,0)); }
+.orb--yellow { background: radial-gradient(circle at 40% 40%, rgba(255,197,38,0.40), rgba(255,197,38,0)); }
 
-/* ── Header / nav ──────────────────────────────────────────────────────── */
+/* ---- Header / nav ----------------------------------------------------- */
 .site-header.is-scrolled {
-  background: rgba(0,0,0,0.72);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(7,7,9,0.72);
   box-shadow: 0 1px 0 var(--border);
 }
 .mobile-menu { background: #050506; }
 .mobile-menu a.m-link { color: var(--ink); border-bottom-color: var(--border); }
-.mobile-menu a.m-link .num { color: var(--blue); }
+.mobile-menu a.m-link .num { color: var(--yellow); }
 
-/* ── Cards — no visible border, separation through background ──────────── */
-.card, .testi, .form-card {
-  background: var(--surface-card);
-  border-color: transparent;
-  box-shadow: var(--shadow-xs);
-}
-.card:hover, .testi:hover {
-  border-color: transparent;
-  box-shadow: var(--shadow);
-  transform: translateY(-4px);
-}
-
-.service-card__icon { background: rgba(10,75,216,0.10); color: var(--blue); }
+/* ---- Cards & surfaces — soft lift, soft hairline ---------------------- */
+.card, .testi, .form-card { background: var(--surface-card); border-color: var(--border); }
+.card:hover, .testi:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+.service-card__icon { background: rgba(255,197,38,0.10); color: var(--yellow); }
 .service-card:hover .service-card__icon { background: var(--blue); color: var(--ivory); }
-.service-card__num { color: var(--ink-muted); }
-.service-card .link-arrow { color: var(--ink-soft); }
-.service-card .link-arrow::after { background: var(--ink-soft); }
-.service-card:hover .link-arrow { color: var(--blue); }
-.service-card:hover .link-arrow::after { background: var(--blue); }
 
-/* ── Statement panel ───────────────────────────────────────────────────── */
-.statement { background: #0A0A0D; border: 1px solid var(--border); }
-.statement::before { background: radial-gradient(circle at 40% 40%, rgba(10,75,216,0.25), transparent 62%); }
-.statement::after  { background: radial-gradient(circle at 40% 40%, rgba(255,197,38,0.08), transparent 62%); }
-.statement .eyebrow { color: var(--ink-muted); }
+/* ---- Statement panel: lift just off true-black, soft inner glows ------ */
+.statement { background: #0B0B0E; border: 1px solid var(--border); }
+.statement::before { background: radial-gradient(circle at 40% 40%, rgba(10,75,216,0.40), transparent 62%); }
+.statement::after  { background: radial-gradient(circle at 40% 40%, rgba(255,197,38,0.16), transparent 62%); }
+.statement .eyebrow { color: var(--yellow); }
 
-/* Duo cards */
-.duo__card.is-you { background: var(--surface-card); border-color: transparent; }
-.duo__plus { color: var(--ink-muted); }
+/* duo "You" card was a light tint → dark; "Me" stays brand blue */
+.duo__card.is-you { background: #131316; border-color: var(--border); }
+.duo__plus { color: var(--yellow); }
 
-/* ── Trust strip ───────────────────────────────────────────────────────── */
-.trust-strip { background: var(--surface); border-color: var(--border); }
-.trust-pill { border-color: var(--border-strong); color: var(--ink-muted); }
+/* ---- Trust strip ------------------------------------------------------ */
+.trust-strip { background: #08080A; border-color: var(--border); }
+.trust-pill { border-color: var(--border-strong); color: var(--ink-soft); }
 .trust-strip__label { color: var(--ink-muted); }
 
-/* ── Process ───────────────────────────────────────────────────────────── */
+/* ---- Process bars ----------------------------------------------------- */
 .process-step::after { background: var(--border-strong); }
-.process-step .bar { background: var(--blue); }
 
-/* ── FAQ ───────────────────────────────────────────────────────────────── */
+/* ---- FAQ -------------------------------------------------------------- */
 .faq-item, .faq-item:first-child { border-color: var(--border-strong); }
 .faq-icon { border-color: var(--border-strong); }
-.faq-icon::before, .faq-icon::after { background: var(--ink-soft); }
+.faq-icon::before, .faq-icon::after { background: var(--ink); }
 .faq-q { color: var(--ink); }
 
-/* ── Buttons ───────────────────────────────────────────────────────────── */
-.btn--primary { box-shadow: var(--shadow-blue); }
-.btn--primary:hover { box-shadow: 0 20px 44px rgba(10,75,216,0.30); }
-
-.btn--dark { background: var(--ivory); color: #0A0A0A; box-shadow: none; }
-.btn--dark:hover { background: #fff; color: #0A0A0A; box-shadow: var(--shadow-sm); }
-
+/* ---- Buttons that relied on --ink being dark -------------------------- */
+/* btn--dark was black bg + ivory text → on a black page invert to an
+   ivory button with black text (the calm, prominent CTA on black). */
+.btn--dark { background: var(--ivory); color: #0A0A0A; box-shadow: var(--shadow-sm); }
+.btn--dark:hover { background: #fff; color: #0A0A0A; box-shadow: var(--shadow); }
 .btn--on-dark { background: var(--ivory); color: #0A0A0A; }
 .btn--on-dark:hover { background: #fff; color: #0A0A0A; }
+.btn--ghost { color: var(--ink); border-color: var(--border-strong); }
+.btn--ghost:hover { border-color: var(--ivory); background: rgba(246,242,233,0.04); }
 
-.btn--ghost { color: var(--ink-soft); border-color: var(--border-strong); }
-.btn--ghost:hover { border-color: rgba(246,242,233,0.30); color: var(--ink); background: rgba(246,242,233,0.03); }
+/* keep the primary blue button from vibrating: a touch softer shadow */
+.btn--primary { box-shadow: var(--shadow-blue); }
 
-.btn--ghost-light { border-color: rgba(246,242,233,0.15); }
-.btn--ghost-light:hover { border-color: rgba(246,242,233,0.35); background: rgba(246,242,233,0.04); }
-
-.btn--yellow { box-shadow: none; }
-.btn--yellow:hover { box-shadow: 0 16px 36px rgba(255,197,38,0.20); }
-
-/* ── Forms ──────────────────────────────────────────────────────────────── */
-.input, .textarea, .select { background: #0C0C0E; color: var(--ink); border-color: var(--border-strong); }
+/* ---- Forms ------------------------------------------------------------ */
+.input, .textarea, .select { background: #0F0F12; color: var(--ink); border-color: var(--border-strong); }
 .input::placeholder, .textarea::placeholder { color: var(--ink-muted); }
-.input:focus, .textarea:focus, .select:focus { background: #101013; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(10,75,216,0.14); }
+.input:focus, .textarea:focus, .select:focus { background: #141418; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(10,75,216,0.20); }
 .select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ECE7DA' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
-.chip label { border-color: var(--border-strong); color: var(--ink-muted); }
-.chip label:hover { border-color: rgba(246,242,233,0.22); color: var(--ink-soft); }
+.chip label { border-color: var(--border-strong); color: var(--ink-soft); }
+.chip label:hover { border-color: var(--ivory); }
 .field label { color: var(--ink); }
-.field .req { color: var(--blue); }
 
-/* ── Contact side cards ─────────────────────────────────────────────────── */
-.contact-card { background: var(--surface-card); border-color: transparent; }
-.contact-card.is-ink { background: #080809 !important; border: none !important; }
+/* ---- Contact side cards (one used --ink as a surface) ----------------- */
+.contact-card { background: #0E0E11; border-color: var(--border); }
+.contact-card.is-ink { background: #060607 !important; border: 1px solid var(--border) !important; }
 .contact-line { color: var(--ink-soft); }
-.contact-line svg { color: var(--ink-muted); }
-.contact-line a:hover { color: var(--ink); }
 
-/* ── Footer ─────────────────────────────────────────────────────────────── */
-.site-footer { background: #050506; border-top: 1px solid var(--border); }
-.footer-col a:hover { color: var(--ivory); }
+/* ---- Footer (was --ink surface → would have gone ivory) --------------- */
+.site-footer { background: #060607; border-top: 1px solid var(--border); }
 
-/* ── Portrait placeholder ──────────────────────────────────────────────── */
+/* ---- Media frame keeps its blue → yellow gradient (great on black) ---- */
 .portrait-placeholder { background:
-  radial-gradient(120% 90% at 70% 10%, rgba(255,197,38,0.15), transparent 55%),
+  radial-gradient(120% 90% at 70% 10%, rgba(255,197,38,0.28), transparent 55%),
   linear-gradient(160deg, var(--blue) 0%, var(--blue-950) 100%); }
 
 .divider-soft { border-top-color: var(--border); }
 
-/* ── Testimonials — middle blue card toned down slightly ────────────────── */
-.testi:nth-child(2) { box-shadow: var(--shadow-blue); }
+/* ---- Focus ring: visible on black ------------------------------------ */
+:focus-visible { outline-color: var(--yellow); }
 
-/* ── CTA card — slightly softer glow ────────────────────────────────────── */
-.cta-card::before { background: radial-gradient(80% 120% at 50% -20%, rgba(255,197,38,0.12), transparent 60%); }
-
-/* ── Service blocks (services page) ─────────────────────────────────────── */
-.service-block { border-top-color: var(--border-strong); }
-.service-block__includes li { border-bottom-color: var(--border); }
-.service-block__includes svg { color: var(--blue); }
-
-/* ── Pull quote ─────────────────────────────────────────────────────────── */
-.pull-quote { border-left-color: rgba(255,197,38,0.40); color: var(--ink); }
-
-/* ── Hero meta border ──────────────────────────────────────────────────── */
-.hero__meta { border-top-color: var(--border); }
-
-/* ── Focus ring ─────────────────────────────────────────────────────────── */
-:focus-visible { outline-color: var(--blue); }
-
-/* ── Print ──────────────────────────────────────────────────────────────── */
+/* ---- Print / PDF: keep it black (overrides base print's ivory) -------- */
 @media print {
   html, body { background: #000000 !important; }
-  .card, .testi, .form-card, .duo__card.is-you { background: #111113 !important; }
-  .statement { background: #0A0A0D !important; }
-  .site-footer { background: #050506 !important; }
-  .trust-strip { background: #0A0A0B !important; }
+  .card, .testi, .form-card, .duo__card.is-you { background: #131316 !important; }
+  .statement { background: #0B0B0E !important; }
+  .site-footer { background: #060607 !important; }
+  .trust-strip { background: #08080A !important; }
 }
