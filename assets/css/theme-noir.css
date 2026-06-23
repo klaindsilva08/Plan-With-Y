@@ -119,6 +119,8 @@ html, body { background: var(--bg); }
    ivory button with black text (the calm, prominent CTA on black). */
 .btn--dark { background: var(--ivory); color: #0A0A0A; box-shadow: var(--shadow-sm); }
 .btn--dark:hover { background: #fff; color: #0A0A0A; box-shadow: var(--shadow); }
+.btn--on-dark { background: var(--ivory); color: #0A0A0A; }
+.btn--on-dark:hover { background: #fff; color: #0A0A0A; }
 .btn--ghost { color: var(--ink); border-color: var(--border-strong); }
 .btn--ghost:hover { border-color: var(--ivory); background: rgba(246,242,233,0.04); }
 
