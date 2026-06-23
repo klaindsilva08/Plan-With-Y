@@ -1,0 +1,12 @@
+{
+  "name": "Plan with Y",
+  "short_name": "PlanWithY",
+  "description": "Branding, content and marketing strategy by Yashitha.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F6F2E9",
+  "theme_color": "#F6F2E9",
+  "icons": [
+    { "src": "/assets/img/planwithy-logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

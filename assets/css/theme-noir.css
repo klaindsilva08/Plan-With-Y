@@ -1,0 +1,162 @@
+/* ==========================================================================
+   PLAN WITH Y — NOIR THEME (black-dominant, eye-friendly)
+   Load AFTER styles.css. Same four brand colours, re-balanced so
+   Rich Black #000000 is the dominant canvas, Ivory #F6F2E9 is the text,
+   Citrus Yellow leads the small accents (best contrast on black) and
+   Electric Blue carries the primary CTAs and focal blocks. Nothing invented.
+
+   Comfort principles applied:
+   · Page stays true Rich Black, but surfaces lift gently off it so there are
+     no harsh black-on-black edges.
+   · Body text is softened (not pure-bright ivory) to avoid halation/glare.
+   · Borders are low-contrast hairlines; glows are subtle, never neon.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* surfaces — black dominant, with calm, low-step elevation */
+  --bg:            #000000;   /* dominant canvas = Rich Black */
+  --surface:       #0A0A0C;   /* faint section lift */
+  --surface-card:  #131316;   /* cards lift clearly but gently off black */
+
+  /* remap the old "lifted ivory" tints to dark so every component that
+     used them (cards, inputs, strips, chips) flips automatically */
+  --ivory-50:      #131316;
+  --ivory-200:     rgba(246,242,233,0.08);
+  --ivory-300:     rgba(246,242,233,0.16);
+
+  --border:        rgba(246,242,233,0.08);
+  --border-strong: rgba(246,242,233,0.16);
+
+  /* text hierarchy — warm ivory, dialled back from full brightness so it
+     reads softly on black instead of glaring */
+  --ink:           #ECE7DA;            /* headings: near-ivory, gentle */
+  --ink-soft:      rgba(236,231,218,0.72);
+  --ink-muted:     rgba(236,231,218,0.46);
+
+  /* on true-dark blocks (blue/black panels) keep brighter ivory */
+  --on-dark:       #F6F2E9;
+  --on-dark-soft:  rgba(246,242,233,0.74);
+  --on-dark-mut:   rgba(246,242,233,0.50);
+
+  /* elevation reads as depth on black; keep it soft, never a hard ring */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-sm: 0 10px 30px rgba(0,0,0,0.45);
+  --shadow:    0 24px 60px rgba(0,0,0,0.5);
+  --shadow-lg: 0 40px 90px rgba(0,0,0,0.6);
+  --shadow-blue: 0 18px 50px rgba(10,75,216,0.40);
+}
+
+html, body { background: var(--bg); }
+
+/* calm, dark scrollbar so the whole experience feels cohesive & smooth */
+* { scrollbar-width: thin; scrollbar-color: rgba(246,242,233,0.18) transparent; }
+*::-webkit-scrollbar { width: 11px; height: 11px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgba(246,242,233,0.14); border-radius: 20px; border: 3px solid #000; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(246,242,233,0.26); }
+
+::selection { background: var(--yellow); color: #14130F; }
+
+/* ---- Accents that need contrast on black switch to yellow ------------- */
+.eyebrow { color: var(--yellow); }
+.link-arrow { color: var(--yellow); }
+.link-arrow::after { background: var(--yellow); }
+.faq-q:hover { color: var(--yellow); }
+.story p:first-of-type::first-letter { color: var(--yellow); }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--ink); }
+
+/* large display accents stay brand-blue (display weight carries it) */
+.accent-blue { color: var(--blue); }
+
+/* ---- Gentle glows: dial the hero orbs WAY down so they're a soft haze -- */
+.orb { opacity: 0.28; filter: blur(36px); }
+.orb--blue   { background: radial-gradient(circle at 40% 40%, rgba(10,75,216,0.55), rgba(10,75,216,0)); }
+.orb--yellow { background: radial-gradient(circle at 40% 40%, rgba(255,197,38,0.40), rgba(255,197,38,0)); }
+
+/* ---- Header / nav ----------------------------------------------------- */
+.site-header.is-scrolled {
+  background: rgba(7,7,9,0.72);
+  box-shadow: 0 1px 0 var(--border);
+}
+.mobile-menu { background: #050506; }
+.mobile-menu a.m-link { color: var(--ink); border-bottom-color: var(--border); }
+.mobile-menu a.m-link .num { color: var(--yellow); }
+
+/* ---- Cards & surfaces — soft lift, soft hairline ---------------------- */
+.card, .testi, .form-card { background: var(--surface-card); border-color: var(--border); }
+.card:hover, .testi:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+.service-card__icon { background: rgba(255,197,38,0.10); color: var(--yellow); }
+.service-card:hover .service-card__icon { background: var(--blue); color: var(--ivory); }
+
+/* ---- Statement panel: lift just off true-black, soft inner glows ------ */
+.statement { background: #0B0B0E; border: 1px solid var(--border); }
+.statement::before { background: radial-gradient(circle at 40% 40%, rgba(10,75,216,0.40), transparent 62%); }
+.statement::after  { background: radial-gradient(circle at 40% 40%, rgba(255,197,38,0.16), transparent 62%); }
+.statement .eyebrow { color: var(--yellow); }
+
+/* duo "You" card was a light tint → dark; "Me" stays brand blue */
+.duo__card.is-you { background: #131316; border-color: var(--border); }
+.duo__plus { color: var(--yellow); }
+
+/* ---- Trust strip ------------------------------------------------------ */
+.trust-strip { background: #08080A; border-color: var(--border); }
+.trust-pill { border-color: var(--border-strong); color: var(--ink-soft); }
+.trust-strip__label { color: var(--ink-muted); }
+
+/* ---- Process bars ----------------------------------------------------- */
+.process-step::after { background: var(--border-strong); }
+
+/* ---- FAQ -------------------------------------------------------------- */
+.faq-item, .faq-item:first-child { border-color: var(--border-strong); }
+.faq-icon { border-color: var(--border-strong); }
+.faq-icon::before, .faq-icon::after { background: var(--ink); }
+.faq-q { color: var(--ink); }
+
+/* ---- Buttons that relied on --ink being dark -------------------------- */
+/* btn--dark was black bg + ivory text → on a black page invert to an
+   ivory button with black text (the calm, prominent CTA on black). */
+.btn--dark { background: var(--ivory); color: #0A0A0A; box-shadow: var(--shadow-sm); }
+.btn--dark:hover { background: #fff; color: #0A0A0A; box-shadow: var(--shadow); }
+.btn--ghost { color: var(--ink); border-color: var(--border-strong); }
+.btn--ghost:hover { border-color: var(--ivory); background: rgba(246,242,233,0.04); }
+
+/* keep the primary blue button from vibrating: a touch softer shadow */
+.btn--primary { box-shadow: var(--shadow-blue); }
+
+/* ---- Forms ------------------------------------------------------------ */
+.input, .textarea, .select { background: #0F0F12; color: var(--ink); border-color: var(--border-strong); }
+.input::placeholder, .textarea::placeholder { color: var(--ink-muted); }
+.input:focus, .textarea:focus, .select:focus { background: #141418; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(10,75,216,0.20); }
+.select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ECE7DA' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+.chip label { border-color: var(--border-strong); color: var(--ink-soft); }
+.chip label:hover { border-color: var(--ivory); }
+.field label { color: var(--ink); }
+
+/* ---- Contact side cards (one used --ink as a surface) ----------------- */
+.contact-card { background: #0E0E11; border-color: var(--border); }
+.contact-card.is-ink { background: #060607 !important; border: 1px solid var(--border) !important; }
+.contact-line { color: var(--ink-soft); }
+
+/* ---- Footer (was --ink surface → would have gone ivory) --------------- */
+.site-footer { background: #060607; border-top: 1px solid var(--border); }
+
+/* ---- Media frame keeps its blue → yellow gradient (great on black) ---- */
+.portrait-placeholder { background:
+  radial-gradient(120% 90% at 70% 10%, rgba(255,197,38,0.28), transparent 55%),
+  linear-gradient(160deg, var(--blue) 0%, var(--blue-950) 100%); }
+
+.divider-soft { border-top-color: var(--border); }
+
+/* ---- Focus ring: visible on black ------------------------------------ */
+:focus-visible { outline-color: var(--yellow); }
+
+/* ---- Print / PDF: keep it black (overrides base print's ivory) -------- */
+@media print {
+  html, body { background: #000000 !important; }
+  .card, .testi, .form-card, .duo__card.is-you { background: #131316 !important; }
+  .statement { background: #0B0B0E !important; }
+  .site-footer { background: #060607 !important; }
+  .trust-strip { background: #08080A !important; }
+}
